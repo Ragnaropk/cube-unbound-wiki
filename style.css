@@ -156,3 +156,21 @@ figcaption{color:var(--dim);font-size:.88rem;margin-top:6px}
   .hero h1{font-size:2rem}
   .cols{grid-template-columns:1fr}
 }
+
+/* ---- Corazones y favoritos */
+.fav{display:inline-flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--line);color:var(--text);
+  border-radius:999px;padding:5px 14px;font:inherit;font-size:.9rem;cursor:pointer;margin:0 0 10px}
+.fav:hover{border-color:var(--red)}
+.fav .hh{color:var(--dim);font-size:1.1rem;line-height:1;transition:transform .15s}
+.fav[aria-pressed="true"]{border-color:var(--red)}
+.fav[aria-pressed="true"] .hh{color:var(--red);transform:scale(1.2)}
+.fav .favn:empty{display:none}
+.fav .favn{color:var(--dim)}
+.fav.mini{position:absolute;top:8px;right:8px;padding:4px 8px;margin:0;z-index:2}
+.fav.mini .favt{display:none}
+.card{position:relative}
+.hh{color:var(--red)}
+.favlink{display:flex;align-items:center;gap:6px;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 12px;white-space:nowrap}
+.favlink:hover{border-color:var(--red);text-decoration:none}
+.favlink span:first-child{color:var(--red)}
+.empty{border:1px dashed var(--line);border-radius:12px;padding:28px;text-align:center;color:var(--dim)}

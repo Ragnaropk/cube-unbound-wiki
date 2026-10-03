@@ -105,6 +105,111 @@
     });
   });
 
+  // ---- Corazones: favoritos guardados en este navegador (localStorage).
+  // window.CubeFavs deja el enganche listo para el contador global: onChange(clave, activo).
+  var FAV_KEY = 'cu_favs';
+  function favLoad() {
+    try { return JSON.parse(localStorage.getItem(FAV_KEY)) || {}; } catch (err) { return {}; }
+  }
+  function favSave(f) {
+    try { localStorage.setItem(FAV_KEY, JSON.stringify(f)); } catch (err) { /* sin almacenamiento: sólo esta visita */ }
+  }
+  var favs = favLoad();
+  var CubeFavs = window.CubeFavs = {
+    has: function (k) { return !!favs[k]; },
+    all: function () { return Object.keys(favs); },
+    onChange: [],
+    toggle: function (k) {
+      if (favs[k]) delete favs[k]; else favs[k] = Date.now();
+      favSave(favs);
+      favPaint();
+      CubeFavs.onChange.forEach(function (fn) { try { fn(k, !!favs[k]); } catch (err) {} });
+      return !!favs[k];
+    }
+  };
+  function favPaint() {
+    document.querySelectorAll('.fav').forEach(function (b) {
+      var on = !!favs[b.dataset.fav];
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
+      var t = b.querySelector('.favt');
+      if (t) t.textContent = on ? 'Te gusta' : 'Me gusta';
+    });
+    var c = document.getElementById('favcount');
+    if (c) c.textContent = Object.keys(favs).length;
+  }
+  function favButton(key, mini) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'fav' + (mini ? ' mini' : '');
+    b.dataset.fav = key;
+    b.innerHTML = '<span class="hh" aria-hidden="true">\u2665</span><span class="favt">Me gusta</span><span class="favn"></span>';
+    return b;
+  }
+  // Las tarjetas con id (muebles, vehículos, estructuras, cultivos) reciben su corazón aquí
+  var CARD_TYPES = { 'muebles.html': 'furniture', 'vehiculos.html': 'vehicle', 'estructuras.html': 'structure', 'cultivos.html': 'crop' };
+  var here = location.pathname.split('/').pop() || 'index.html';
+  if (CARD_TYPES[here]) {
+    document.querySelectorAll('div.card[id]').forEach(function (card) {
+      card.appendChild(favButton(CARD_TYPES[here] + ':' + card.id, true));
+    });
+  }
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest('.fav');
+    if (!b) return;
+    ev.preventDefault();
+    CubeFavs.toggle(b.dataset.fav);
+    if (document.getElementById('favlist')) favList();
+  });
+
+  // Clave de favorito a partir de la dirección de una entrada del buscador
+  function favKeyOf(u) {
+    var m = /^criatura\/(.+)\.html$/.exec(u); if (m) return 'mob:' + m[1];
+    m = /^objeto\/(.+)\.html$/.exec(u); if (m) return 'item:' + m[1];
+    m = /^raza\/(.+)\.html$/.exec(u); if (m) return 'race:' + m[1];
+    m = /^(muebles|vehiculos|estructuras|cultivos)\.html#(.+)$/.exec(u);
+    if (m) return CARD_TYPES[m[1] + '.html'] + ':' + m[2];
+    return null;
+  }
+  var FAV_GROUPS = [['mob', 'Criaturas'], ['race', 'Razas'], ['item', 'Objetos'], ['furniture', 'Muebles'],
+                    ['vehicle', 'Vehículos'], ['structure', 'Estructuras'], ['crop', 'Cultivos']];
+  function favList() {
+    var box = document.getElementById('favlist'), empty = document.getElementById('favempty');
+    var byKey = {};
+    (window.SEARCH_INDEX || []).forEach(function (r) { var k = favKeyOf(r[1]); if (k && !byKey[k]) byKey[k] = r; });
+    box.innerHTML = '';
+    var total = 0;
+    FAV_GROUPS.forEach(function (g) {
+      var keys = Object.keys(favs).filter(function (k) { return k.indexOf(g[0] + ':') === 0 && byKey[k]; });
+      if (!keys.length) return;
+      keys.sort(function (a, b) { return favs[b] - favs[a]; });
+      total += keys.length;
+      var h = document.createElement('h2'); h.textContent = g[1] + ' (' + keys.length + ')'; box.appendChild(h);
+      var grid = document.createElement('div'); grid.className = 'cards'; box.appendChild(grid);
+      keys.forEach(function (k) {
+        var r = byKey[k], card = document.createElement('div');
+        card.className = 'card';
+        var a = document.createElement('a'); a.href = ROOT + r[1];
+        if (r[3]) { var im = document.createElement('img'); im.className = 'cardimg'; im.src = ROOT + r[3]; im.alt = ''; a.appendChild(im); }
+        var b = document.createElement('b'); b.textContent = r[0]; a.appendChild(b);
+        card.appendChild(a);
+        var sp = document.createElement('span'); sp.className = 'dim'; sp.textContent = r[2]; card.appendChild(sp);
+        card.appendChild(favButton(k, true));
+        grid.appendChild(card);
+      });
+    });
+    empty.style.display = total ? 'none' : '';
+    favPaint();
+  }
+  if (document.getElementById('favlist')) favList();
+  favPaint();
+  // Otra pestaña cambió los favoritos: ponerse al día
+  window.addEventListener('storage', function (ev) {
+    if (ev.key !== FAV_KEY) return;
+    favs = favLoad();
+    if (document.getElementById('favlist')) favList(); else favPaint();
+  });
+
   // ---- Cerrar el menú móvil al elegir página
   document.querySelectorAll('.side a').forEach(function (a) {
     a.addEventListener('click', function () { document.body.classList.remove('navopen'); });
