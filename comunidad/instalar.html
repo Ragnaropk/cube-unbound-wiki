@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instalar · Mods de Cube Unbound</title>
+<meta name="description" content="Mods, packs de recursos y plugins de la comunidad de Cube Unbound.">
+<link rel="icon" href="../img/favicon.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="comunidad.css">
+</head>
+<body class="hub">
+<header class="top">
+  <a class="brand" href="index.html"><img src="../img/logo_small.jpg" alt=""><span>Cube Unbound <b>Mods</b></span></a>
+  <nav class="hubnav"><a href="index.html">Catálogo</a><a class="on" href="instalar.html">Instalar</a><a href="publicar.html">Publicar el tuyo</a><a href="../modding.html">Guía de mods</a><a href="../index.html">Wiki</a></nav>
+</header>
+<main class="hubmain">
+<h1>Cómo se instalan</h1><p class="lead">Hoy el juego lee una única carpeta <code>mods</code> al arrancar. Instalar un mod es copiar sus archivos dentro de ella.</p><h2>Mods y packs de recursos</h2><ol><li>Cierra el juego.</li><li>Descomprime el <code>.zip</code>.</li><li>Copia la carpeta <code>mods</code> que trae dentro sobre la carpeta del juego (la que contiene <code>CubeUnbound.exe</code>) y acepta combinar las carpetas.</li><li>Un pack de recursos <b>sustituye</b> archivos del juego. Antes de copiar, guarda una copia de tu carpeta <code>mods</code> para poder volver atrás.</li><li>Abre el juego. Los mods se leen al arrancar; si algún archivo tiene un error, el juego lo avisa en pantalla.</li></ol><h2>Qué diferencia hay</h2><div class="steps3"><div><h3>Mod</h3><p>Añade archivos nuevos con identificadores propios (una criatura, un objeto, una receta). Convive con el juego base y con otros mods mientras no repitan identificadores.</p></div><div><h3>Pack de recursos</h3><p>Sustituye modelos <code>.vox</code> de <code>mods/models</code> o deja sonidos <code>.wav</code> en <code>mods/audio</code>. Cambia cómo se ve y suena el juego, no sus reglas. Dos packs que cambian el mismo archivo se pisan: gana el último que copies.</p></div><div><h3>Plugin</h3><p>Código nativo que añade mecánicas. <b>Aún no disponible:</b> el juego todavía no carga plugins.</p></div></div><h2>Desinstalar</h2><p>Borra de <code>mods</code> los archivos que trajo el mod: la ficha de cada uno lista sus archivos. Si era un pack de recursos, restaura tu copia de seguridad o los archivos originales del juego.</p><h2>En multijugador</h2><p>En una partida en red local conviene que todos tengan los mismos mods: el anfitrión calcula las criaturas y el combate, pero cada jugador dibuja con sus propios archivos.</p><div class="note"><b>En el futuro.</b> Está previsto un gestor dentro del juego con una carpeta por mod, orden de prioridad y recarga sin reiniciar. Cuando exista, los paquetes de este portal seguirán sirviendo: ya llevan su <code>mod.json</code>.</div>
+<footer>Portal de la comunidad de Cube Unbound · actualizado el 03/10/2026. Los mods son obra de sus autores; instálalos bajo tu responsabilidad.</footer>
+</main>
+<script src="comunidad.js"></script>
+</body>
+</html>

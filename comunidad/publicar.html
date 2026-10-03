@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Publicar el tuyo · Mods de Cube Unbound</title>
+<meta name="description" content="Mods, packs de recursos y plugins de la comunidad de Cube Unbound.">
+<link rel="icon" href="../img/favicon.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="comunidad.css">
+</head>
+<body class="hub">
+<header class="top">
+  <a class="brand" href="index.html"><img src="../img/logo_small.jpg" alt=""><span>Cube Unbound <b>Mods</b></span></a>
+  <nav class="hubnav"><a href="index.html">Catálogo</a><a href="instalar.html">Instalar</a><a class="on" href="publicar.html">Publicar el tuyo</a><a href="../modding.html">Guía de mods</a><a href="../index.html">Wiki</a></nav>
+</header>
+<main class="hubmain">
+<h1>Publicar el tuyo</h1><p class="lead">Un mod se comparte como un <code>.zip</code> con una estructura fija, para que cualquiera lo instale igual.</p><h2>1. Estructura del paquete</h2><pre><code>mi_mod.zip
+├─ mod.json          la ficha: nombre, autor, versión…
+├─ LEEME.txt         qué hace y cómo se usa
+└─ mods/             lo que se copia sobre la carpeta mods del juego
+   ├─ mobs/mi_mod_criatura.json
+   ├─ items/mi_mod.json
+   ├─ recipes/mi_mod.json
+   └─ models/mi_mod/…​.vox</code></pre><h2>2. La ficha <code>mod.json</code></h2><pre><code>{
+  &quot;id&quot;: &quot;mi_mod&quot;,
+  &quot;nombre&quot;: &quot;Mi mod&quot;,
+  &quot;tipo&quot;: &quot;mod&quot;,
+  &quot;autor&quot;: &quot;Tu nombre&quot;,
+  &quot;version&quot;: &quot;1.0&quot;,
+  &quot;juego&quot;: &quot;alfa&quot;,
+  &quot;resumen&quot;: &quot;Una frase que lo describa.&quot;,
+  &quot;etiquetas&quot;: [
+    &quot;criaturas&quot;
+  ],
+  &quot;licencia&quot;: &quot;CC BY 4.0&quot;
+}</code></pre><p><code>tipo</code> es <code>mod</code>, <code>resourcepack</code> o <code>plugin</code>. El juego aún no lee esta ficha: sirve al portal y, más adelante, al gestor de mods.</p><h2>3. Reglas para que no choque con otros</h2><ul><li>Pon un <b>prefijo propio</b> a todos tus identificadores y nombres de archivo (<code>mi_mod_…</code>).</li><li>Un mod <b>añade</b> archivos; no edites los del juego base. Si tu paquete sustituye archivos, es un pack de recursos y debe decirlo.</li><li>Guarda los JSON en UTF-8 y comprueba que el juego arranca sin avisos con tu mod puesto.</li><li>Incluye solo contenido tuyo o con licencia para redistribuirlo.</li></ul><h2>4. Enviarlo al catálogo</h2><p>Sube el <code>.zip</code> a un sitio con enlace permanente (por ejemplo, una <i>release</i> de tu repositorio de GitHub) y <a href="https://github.com/neurostudioscontacto-arch/cube-unbound-wiki/issues/new">abre una propuesta en el repositorio</a> con el enlace y tu <code>mod.json</code>. Tras revisarlo, aparecerá aquí.</p><h2>Plantillas</h2><p>Para empezar con la estructura ya montada, descarga una de las plantillas oficiales del <a href="index.html">catálogo</a>. Para aprender los formatos, lee la <a href="../modding.html">guía de mods</a> y la <a href="../modding-referencia.html">referencia de datos</a>.</p>
+<footer>Portal de la comunidad de Cube Unbound · actualizado el 03/10/2026. Los mods son obra de sus autores; instálalos bajo tu responsabilidad.</footer>
+</main>
+<script src="comunidad.js"></script>
+</body>
+</html>

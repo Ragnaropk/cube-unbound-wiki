@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía de mods · Wiki de Cube Unbound</title>
+<meta name="description" content="Cómo crear mods para Cube Unbound con JSON y MagicaVoxel.">
+<link rel="icon" href="img/favicon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <button class="burger" aria-label="Menú" onclick="document.body.classList.toggle('navopen')">☰</button>
+  <a class="brand" href="index.html"><img src="img/logo_small.jpg" alt=""><span>Cube Unbound <b>Wiki</b></span></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Buscar criaturas, objetos, biomas…" autocomplete="off">
+    <div id="results"></div>
+  </div>
+</header>
+<div class="shell">
+<nav class="side"><div class="navg"><h4>El juego</h4><a href="index.html">Portada</a><a href="empezar.html">Primeros pasos</a><a href="controles.html">Controles</a><a href="galeria.html">Galería</a></div><div class="navg"><h4>Personaje</h4><a href="razas.html">Razas y habilidades</a><a href="combate.html">Combate y progresión</a><a href="conjuntos.html">Conjuntos de equipo</a><a href="mascotas.html">Mascotas y monturas</a></div><div class="navg"><h4>Criaturas</h4><a href="bestiario.html">Bestiario</a><a href="jefes.html">Jefes y únicos</a><a href="facciones.html">Facciones y hordas</a></div><div class="navg"><h4>Objetos</h4><a href="objetos.html">Todos los objetos</a><a href="fabricacion.html">Fabricación y estaciones</a><a href="minerales.html">Minerales y minería</a><a href="muebles.html">Muebles y decoración</a></div><div class="navg"><h4>Mundo</h4><a href="biomas.html">Biomas y zonas</a><a href="mazmorras.html">Mazmorras</a><a href="estructuras.html">Estructuras</a><a href="vehiculos.html">Vehículos</a></div><div class="navg"><h4>Oficios</h4><a href="pesca.html">Pesca</a><a href="cultivos.html">Cultivos</a><a href="cocina.html">Cocina y comida</a></div><div class="navg"><h4>Comunidad</h4><a href="comunidad/index.html">Portal de mods</a><a class="on" href="modding.html">Guía de mods</a><a href="modding-referencia.html">Referencia de datos</a></div></nav>
+<main>
+<h1>Guía de mods</h1><p class="lead">Cube Unbound está hecho para modificarse: casi todo el contenido son archivos JSON legibles y modelos de MagicaVoxel dentro de la carpeta <code>mods/</code>. No hace falta programar ni recompilar.</p><div class="note"><b>Ciclo de trabajo.</b> El juego lee <code>mods/</code> al arrancar: edita un archivo y vuelve a abrir el juego para ver el cambio. Si un archivo tiene un error, el juego lo avisa (qué archivo y qué campo) y sigue funcionando. La recarga sin reiniciar (tecla <kbd>F4</kbd>) está prevista, pero todavía no está hecha.</div><figure><img src="aviso_errores.png" alt="Aviso de errores de carga" loading="lazy"><figcaption>Así avisa el juego: arriba de la pantalla, qué archivo falla y por qué. Aquí, tres archivos rotos a propósito.</figcaption></figure><h2>La carpeta <code>mods/</code></h2><table class="data"><thead><tr><th>Carpeta</th><th>Qué contiene</th><th>Ahora mismo</th></tr></thead><tbody><tr><td><code>items/</code></td><td>Objetos: materiales, bloques, herramientas, armas y equipo.</td><td>783</td></tr><tr><td><code>recipes/</code></td><td>Recetas de fabricación y en qué estación se hacen.</td><td>374</td></tr><tr><td><code>mobs/</code></td><td>Fauna, monstruos, jefes y únicos (un archivo por criatura).</td><td>241</td></tr><tr><td><code>factions/</code></td><td>Personajes de facción con arma y rol.</td><td>57</td></tr><tr><td><code>villagers/</code></td><td>Aldeanos de cada raza.</td><td>6</td></tr><tr><td><code>races/ y skills/</code></td><td>Razas jugables y sus ramas de habilidades.</td><td>10</td></tr><tr><td><code>dungeons/</code></td><td>Mazmorras: bioma, nivel, facción, jefe y bloques.</td><td>11</td></tr><tr><td><code>horde/</code></td><td>Reglas de las hordas y composición por facción.</td><td>11</td></tr><tr><td><code>furniture/</code></td><td>Plantillas de muebles, materiales y piezas de colección.</td><td>114</td></tr><tr><td><code>farming/ y fishing/</code></td><td>Cultivos, peces, cañas y reglas.</td><td>70</td></tr><tr><td><code>vehicles/</code></td><td>Vehículos: piezas, asientos y tipo.</td><td>18</td></tr><tr><td><code>structures/</code></td><td>Estructuras del mundo como modelos .vox.</td><td>20</td></tr><tr><td><code>world/</code></td><td>Peligro por distancia, vetas, dureza, luz y botín de mazmorra.</td><td></td></tr><tr><td><code>combat/, progression/, player/</code></td><td>Reglas de daño, experiencia y estadísticas del jugador.</td><td></td></tr><tr><td><code>equipment/</code></td><td>Conjuntos de equipo y sus bonos.</td><td>20</td></tr><tr><td><code>audio/</code></td><td>Sonidos y música (.wav) que sustituyen a los sintetizados.</td><td></td></tr><tr><td><code>models/</code></td><td>Todos los modelos .vox, por carpetas.</td><td></td></tr><tr><td><code>ui/</code></td><td>Consejos de la pantalla de carga.</td><td>14</td></tr></tbody></table><h2>Modelos .vox</h2><ul><li>Se hacen con <a href="https://ephtracy.github.io/" rel="noopener">MagicaVoxel</a> y se guardan en <code>mods/models/…</code>. En los JSON se nombran sin extensión: <code>"model": "animals/wolf_body"</code>.</li><li>En MagicaVoxel el eje Z es arriba y el frente del modelo mira hacia −Y. El juego lo convierte a sus ejes: +X derecha, +Y arriba, +Z adelante.</li><li>El tamaño de cada vóxel lo fija <code>voxelSize</code> (en metros; 0,1 en personajes y objetos). Los muebles y estaciones usan 16 vóxeles por bloque.</li><li>Las <b>variantes de color</b> cambian índices de la paleta: <code>{"1": "E8742A"}</code> pinta el color 1 de naranja. Así un mismo modelo da varios pelajes.</li></ul><h2>Tu primera criatura</h2><p>Copia un archivo de <code>mods/mobs/</code>, cámbiale el <code>id</code> y ajusta lo que quieras. Este es el conejo real del juego:</p><pre><code>{
+  &quot;id&quot;: &quot;bunny&quot;,
+  &quot;name&quot;: &quot;Conejo&quot;,
+  &quot;description&quot;: &quot;Avanza a saltitos y se para a olfatear con las orejas tiesas.&quot;,
+  &quot;style&quot;: &quot;hopper&quot;,
+  &quot;voxelSize&quot;: 0.06,
+  &quot;behavior&quot;: &quot;wander&quot;,
+  &quot;tame&quot;: {
+    &quot;food&quot;: &quot;berries&quot;,
+    &quot;bites&quot;: 2
+  },
+  &quot;temper&quot;: &quot;passive&quot;,
+  &quot;stats&quot;: {
+    &quot;health&quot;: 12,
+    &quot;armor&quot;: 0,
+    &quot;damage&quot;: 2,
+    &quot;regen&quot;: 0.5,
+    &quot;level&quot;: 1
+  },
+  &quot;movement&quot;: {
+    &quot;type&quot;: &quot;ground&quot;,
+    &quot;speed&quot;: 2.6,
+    &quot;width&quot;: 0.4,
+    &quot;height&quot;: 0.5
+  },
+  &quot;spawn&quot;: {
+    &quot;count&quot;: 3,
+    &quot;group&quot;: 1,
+    &quot;biomes&quot;: [
+      &quot;plains&quot;,
+      &quot;forest&quot;,
+      &quot;snowy&quot;
+    ]
+  },
+  &quot;variants&quot;: [
+    {
+      &quot;1&quot;: &quot;A07850&quot;,
+      &quot;2&quot;: &quot;7E5C3C&quot;
+    },
+    {
+      &quot;1&quot;: &quot;9C9CA2&quot;,
+      &quot;2&quot;: &quot;7A7A82&quot;
+    }
+  ],
+  &quot;parts&quot;: [
+    {
+      &quot;bone&quot;: &quot;body&quot;,
+      &quot;model&quot;: &quot;animals/bunny_body&quot;,
+      &quot;pivot&quot;: [
+        3,
+        0,
+        3.5
+      ],
+      &quot;at&quot;: [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      &quot;bone&quot;: &quot;head&quot;,
+      &quot;parent&quot;: &quot;body&quot;,
+      &quot;model&quot;: &quot;animals/bunny_head&quot;,
+      &quot;pivot&quot;: [
+        2.5,
+        0,
+        1
+      ],
+      &quot;at&quot;: [
+        0,
+        3.5,
+        2.5
+      ]
+    },
+    {
+      &quot;bone&quot;: &quot;tail&quot;,
+      &quot;parent&quot;: &quot;body&quot;,
+      &quot;model&quot;: &quot;animals/bunny_tail&quot;,
+      &quot;pivot&quot;: [
+        1,
+        1,
+        2
+      ],
+      &quot;at&quot;: [
+        0,
+        2.5,
+        -3.5
+      ]
+    }
+  ],
+  &quot;loot&quot;: [
+    {
+      &quot;item&quot;: &quot;raw_meat&quot;,
+      &quot;min&quot;: 1,
+      &quot;max&quot;: 1,
+      &quot;chance&quot;: 0.8
+    }
+  ]
+}</code></pre><table class="kv"><tr><th>id, name, description</th><td>Identificador único (sin espacios), nombre y texto del bestiario.</td></tr><tr><th>style</th><td>Cómo se anima: <code>quadruped</code>, <code>biped</code>, <code>flyer</code>, <code>swim</code>, <code>insect</code>, <code>hopper</code>.</td></tr><tr><th>temper</th><td><code>passive</code> (huye), <code>defensive</code> (ataca si le atacan) u <code>hostile</code>.</td></tr><tr><th>stats</th><td>Vida, armadura, daño y regeneración base. Con <code>level</code> 1 la criatura toma el nivel de la zona donde aparece; un nivel mayor es fijo (jefes y únicos).</td></tr><tr><th>movement</th><td>Velocidad y tamaño del cuerpo en bloques. <code>type</code>: <code>ground</code>, <code>air</code> (con <code>flyHeight</code>) o <code>water</code> (con <code>depthMin</code>/<code>depthMax</code>); <code>swimmer</code> para las que nadan.</td></tr><tr><th>spawn</th><td>Dónde y cuándo aparece: <code>biomes</code>, <code>caves</code> (estratos), <code>hours</code>, <code>temperature</code>, <code>humidity</code>, <code>count</code> y <code>group</code>. Con <code>count</code> 0 no aparece sola.</td></tr><tr><th>parts</th><td>Las piezas del cuerpo. Cada una tiene un hueso (<code>bone</code>), un modelo, su <code>pivot</code> (punto de giro dentro del modelo, en vóxeles) y <code>at</code> (dónde queda ese punto en el cuerpo, siempre en coordenadas absolutas). <code>mirror</code> refleja la pieza para el lado izquierdo; <code>parent</code> la cuelga de otra. Tiene que haber una pieza <code>body</code>.</td></tr><tr><th>variants</th><td>Hasta 15 recoloreados de la paleta.</td></tr><tr><th>effects</th><td>Lo que causan sus golpes: <code>knockback</code>, <code>bleed</code>, <code>slow</code>, <code>stun</code>, <code>burn</code>, <code>armorPierce</code>, <code>poison</code>, <code>lifesteal</code>, <code>thorns</code>.</td></tr><tr><th>tame</th><td>Comida favorita, bocados y, si se monta, <code>mount</code> con velocidad, salto y altura del asiento.</td></tr><tr><th>loot</th><td>Lista de objetos con cantidad mínima, máxima y probabilidad.</td></tr><tr><th>boss</th><td>Título, escala, radio de la arena y fases (<code>below</code> = fracción de vida a la que cambia; multiplicadores y frase).</td></tr><tr><th>unique</th><td>Lo convierte en enemigo único: biomas, horas, altura y probabilidad.</td></tr></table><h2>Objetos</h2><p>Cada archivo de <code>mods/items/</code> es una lista de objetos. Tres ejemplos reales: un arma, una pieza de equipo y una comida.</p><pre><code>[
+  {
+    &quot;id&quot;: &quot;short_sword_iron&quot;,
+    &quot;name&quot;: &quot;Espada corta de hierro&quot;,
+    &quot;category&quot;: &quot;weapon&quot;,
+    &quot;color&quot;: &quot;iron_ore&quot;,
+    &quot;model&quot;: &quot;items/short_sword_iron&quot;,
+    &quot;grip&quot;: [
+      1.5,
+      3.5,
+      2.0
+    ],
+    &quot;maxStack&quot;: 1,
+    &quot;weapon&quot;: {
+      &quot;type&quot;: &quot;melee&quot;,
+      &quot;style&quot;: &quot;slash&quot;,
+      &quot;damage&quot;: 10,
+      &quot;cooldown&quot;: 0.45,
+      &quot;reach&quot;: 2.7,
+      &quot;arc&quot;: 90
+    }
+  },
+  {
+    &quot;id&quot;: &quot;leather_helmet&quot;,
+    &quot;name&quot;: &quot;Gorro de cuero&quot;,
+    &quot;model&quot;: &quot;armor/leather_helmet&quot;,
+    &quot;category&quot;: &quot;equipment&quot;,
+    &quot;color&quot;: &quot;dirt&quot;,
+    &quot;equip&quot;: {
+      &quot;set&quot;: &quot;leather&quot;,
+      &quot;slot&quot;: &quot;helmet&quot;,
+      &quot;armor&quot;: 3,
+      &quot;health&quot;: 5
+    }
+  },
+  {
+    &quot;id&quot;: &quot;roasted_draconic_meat&quot;,
+    &quot;name&quot;: &quot;Carne Dracónica Asada&quot;,
+    &quot;category&quot;: &quot;material&quot;,
+    &quot;color&quot;: &quot;terracotta_brown&quot;,
+    &quot;maxStack&quot;: 64,
+    &quot;food&quot;: {
+      &quot;heal&quot;: 60,
+      &quot;seconds&quot;: 600,
+      &quot;stats&quot;: {
+        &quot;damage&quot;: 0.08
+      }
+    }
+  }
+]</code></pre><table class="kv"><tr><th>category</th><td><code>material</code>, <code>block</code>, <code>tool</code>, <code>weapon</code> o <code>equipment</code>.</td></tr><tr><th>color</th><td>Nombre de un bloque; da el color del icono cuando no hay modelo.</td></tr><tr><th>model, grip</th><td>Modelo .vox y punto por donde se agarra, en vóxeles.</td></tr><tr><th>weapon</th><td><code>type</code>: <code>melee</code> (con <code>style</code> slash, heavy o thrust, alcance y arco), <code>bow</code>, <code>staff</code>, <code>hitscan</code> o <code>rocket</code>.</td></tr><tr><th>tool</th><td>Tipo, intervalo de minado, <code>grade</code> (qué dureza rompe) y <code>fastOn</code> (bloques en los que es rápida).</td></tr><tr><th>equip</th><td><code>slot</code> (<code>helmet</code>, <code>chest</code>, <code>legs</code>, <code>boots</code>, <code>wings</code>, <code>ring</code>, <code>amulet</code>, <code>offhand</code>), <code>set</code> y las estadísticas que suma.</td></tr><tr><th>food</th><td>Cura, estamina, maná y mejoras temporales (<code>stats</code> durante <code>seconds</code>).</td></tr><tr><th>placesBlock, droppedBy</th><td>Qué bloque coloca y qué bloques lo sueltan al romperse.</td></tr></table><h2>Recetas</h2><p>Archivos de <code>mods/recipes/</code>: listas de recetas. Sin <code>station</code> se fabrica a mano.</p><pre><code>{
+  &quot;id&quot;: &quot;iron_ingot&quot;,
+  &quot;result&quot;: &quot;iron_ingot&quot;,
+  &quot;count&quot;: 1,
+  &quot;station&quot;: &quot;forge&quot;,
+  &quot;ingredients&quot;: [
+    {
+      &quot;item&quot;: &quot;iron_ore&quot;,
+      &quot;count&quot;: 2
+    },
+    {
+      &quot;item&quot;: &quot;coal&quot;,
+      &quot;count&quot;: 1
+    }
+  ]
+}</code></pre><p>Estaciones válidas: <code>workbench</code> (Banco de trabajo), <code>forge</code> (Fragua), <code>anvil</code> (Yunque), <code>loom</code> (Telar), <code>alchemy_cauldron</code> (Caldero de alquimia), <code>runic_forge</code> (Forja Rúnica), <code>elven_forge</code> (Forja Élfica), <code>titan_anvil</code> (Yunque de Sangre de Titán), <code>creation_altar</code> (Altar de la Creación), <code>campfire</code> (Hoguera), <code>cooking_pot</code> (Olla), <code>oven</code> (Horno), <code>barrel</code> (Barril).</p><h2>Sonido y música</h2><p>El juego sintetiza todos sus sonidos, así que no necesita ningún archivo. Para cambiar uno, deja un <code>.wav</code> (PCM de 16 bits, 44.100 Hz; mono para efectos, estéreo para música) con el nombre adecuado en <code>mods/audio/sfx/</code> o <code>mods/audio/music/</code>. La lista completa está en <code>mods/audio/LEEME.txt</code>.</p><h2>Buenas prácticas</h2><ul><li>Usa identificadores propios (por ejemplo con un prefijo) para no chocar con los del juego ni con otros mods.</li><li>Guarda los archivos en UTF-8.</li><li>Prueba cada cambio abriendo el juego antes de seguir.</li><li>Mira la <a href="modding-referencia.html">referencia de datos</a> para ver todos los valores que admite cada campo.</li></ul><div class="note"><b>Comparte tu mod.</b> En el <a href="comunidad/index.html">portal de mods</a> están las plantillas, el formato de paquete y cómo publicar el tuyo.</div>
+<footer>Wiki generada a partir de los datos del juego (<code>mods/</code>) el 03/10/2026. Cube Unbound está en desarrollo: los valores pueden cambiar.</footer>
+</main>
+</div>
+<script>var ROOT="";</script>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
