@@ -292,6 +292,58 @@
     }).catch(function () {});
   }
 
+  // ---- Lista de espera de la alfa
+  (function () {
+    var form = document.getElementById('waitform');
+    if (!form || !API || !window.fetch) return;
+    var msg = document.getElementById('waitmsg'), email = document.getElementById('wemail');
+    var ERR = { correo: 'Ese correo no parece válido. Revísalo.', consentimiento: 'Marca la casilla para poder guardar tu correo.',
+                demasiados: 'Demasiados intentos seguidos. Prueba de nuevo en un rato.' };
+    function say(el, text, kind) { el.textContent = text; el.className = 'waitmsg ' + (kind || ''); }
+    function post(body) {
+      return fetch(API + '/waitlist', { method: 'POST', body: JSON.stringify(body) }).then(function (r) { return r.json(); });
+    }
+    fetch(API + '/waitlist/count').then(function (r) { return r.json(); }).then(function (d) {
+      var c = document.getElementById('waitcount');
+      if (c && d && d.n >= 10) { c.textContent = 'Ya hay ' + d.n + ' personas esperando la alfa.'; c.style.display = ''; }
+    }).catch(function () {});
+    try { if (localStorage.getItem('cu_wait')) say(msg, 'Ya estás en la lista desde este navegador. ¡Gracias!', 'ok'); } catch (err) {}
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var value = email.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) { say(msg, ERR.correo, 'err'); email.focus(); return; }
+      if (!document.getElementById('wconsent').checked) { say(msg, ERR.consentimiento, 'err'); return; }
+      var interest = (form.querySelector('input[name=interest]:checked') || {}).value || '';
+      var button = form.querySelector('button');
+      button.disabled = true;
+      say(msg, 'Apuntándote…');
+      post({ email: value, interest: interest, consent: true, web: form.elements.web.value }).then(function (res) {
+        button.disabled = false;
+        if (res && res.ok) {
+          say(msg, '¡Listo! Te avisaremos en ' + value + ' cuando salga la alfa.', 'ok');
+          try { localStorage.setItem('cu_wait', '1'); } catch (err) {}
+          form.reset();
+        } else say(msg, ERR[res && res.error] || 'No se pudo apuntar. Inténtalo de nuevo en un momento.', 'err');
+      }).catch(function () {
+        button.disabled = false;
+        say(msg, 'No hay conexión con el servicio. Inténtalo de nuevo en un momento.', 'err');
+      });
+    });
+    var off = document.getElementById('waitoff'), offmsg = document.getElementById('waitoffmsg');
+    off.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var value = off.elements.email.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) { say(offmsg, ERR.correo, 'err'); return; }
+      post({ email: value, off: true }).then(function (res) {
+        if (res && res.ok) {
+          say(offmsg, 'Hecho: si ese correo estaba en la lista, ya está borrado.', 'ok');
+          try { localStorage.removeItem('cu_wait'); } catch (err) {}
+          off.reset();
+        } else say(offmsg, ERR[res && res.error] || 'No se pudo borrar. Inténtalo de nuevo.', 'err');
+      }).catch(function () { say(offmsg, 'No hay conexión con el servicio.', 'err'); });
+    });
+  })();
+
   // Otra pestaña cambió los favoritos: ponerse al día
   window.addEventListener('storage', function (ev) {
     if (ev.key !== FAV_KEY) return;

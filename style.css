@@ -181,3 +181,24 @@ figcaption{color:var(--dim);font-size:.88rem;margin-top:6px}
 .dclink:hover{text-decoration:none;filter:brightness(1.1)}
 .btn.discord{background:#5865f2;color:#fff}
 @media (max-width:600px){.dclink{display:none}}
+
+/* ---- Lista de espera */
+.waitform{display:grid;gap:12px;max-width:520px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0}
+.waitform>label:first-child{font-weight:600}
+.waitform input[type=email],.waitoff input[type=email]{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font:inherit}
+.waitform input[type=email]:focus,.waitoff input[type=email]:focus{outline:2px solid var(--teal);outline-offset:-1px}
+.waitform fieldset{border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:0;display:grid;gap:4px}
+.waitform legend{padding:0 6px;font-size:.92rem}
+.opt{display:flex;gap:8px;align-items:flex-start;font-size:.95rem;cursor:pointer}
+.opt input{margin-top:5px}
+.waitform .btn,.waitoff .btn{border:0;font:inherit;font-weight:600;cursor:pointer;justify-self:start;margin:0}
+.waitoff .btn.ghost{border:1px solid var(--line)}
+.waitmsg{margin:0;min-height:1.4em;font-size:.95rem}
+.waitmsg.ok{color:var(--green)} .waitmsg.err{color:var(--red)}
+.waitcount{color:var(--gold);font-weight:600}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.waitoff{max-width:520px;margin:12px 0}
+.waitoff summary{cursor:pointer;color:var(--link)}
+.waitoff form{display:grid;gap:10px;margin-top:10px}
+.enlink{color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-weight:600;white-space:nowrap}
+.enlink:hover{border-color:var(--gold);text-decoration:none}
