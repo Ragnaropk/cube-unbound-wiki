@@ -174,3 +174,10 @@ figcaption{color:var(--dim);font-size:.88rem;margin-top:6px}
 .favlink:hover{border-color:var(--red);text-decoration:none}
 .favlink span:first-child{color:var(--red)}
 .empty{border:1px dashed var(--line);border-radius:12px;padding:28px;text-align:center;color:var(--dim)}
+.fav .favn{font-variant-numeric:tabular-nums}
+.rank{position:absolute;top:8px;left:10px;color:var(--gold);font-weight:700}
+.hearts{color:var(--red);font-weight:600}
+.dclink{color:#fff;background:#5865f2;border-radius:8px;padding:6px 12px;font-weight:600;white-space:nowrap}
+.dclink:hover{text-decoration:none;filter:brightness(1.1)}
+.btn.discord{background:#5865f2;color:#fff}
+@media (max-width:600px){.dclink{display:none}}

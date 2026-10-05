@@ -137,6 +137,7 @@
     });
     var c = document.getElementById('favcount');
     if (c) c.textContent = Object.keys(favs).length;
+    if (typeof paintCounts === 'function') paintCounts();
   }
   function favButton(key, mini) {
     var b = document.createElement('button');
@@ -203,6 +204,94 @@
   }
   if (document.getElementById('favlist')) favList();
   favPaint();
+  // ---- Contador global de corazones (sólo si la wiki se generó con la dirección del servicio)
+  var API = window.FAV_API || '';
+  var counts = null;
+  function voterId() {
+    var v = null;
+    try { v = localStorage.getItem('cu_vid'); } catch (err) {}
+    if (!v) {
+      var a = new Uint8Array(16);
+      (window.crypto || window.msCrypto).getRandomValues(a);
+      v = Array.prototype.map.call(a, function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+      try { localStorage.setItem('cu_vid', v); } catch (err) {}
+    }
+    return v;
+  }
+  function paintCounts() {
+    if (!counts) return;
+    document.querySelectorAll('.fav').forEach(function (b) {
+      var n = counts[b.dataset.fav] || 0, el = b.querySelector('.favn');
+      if (el) el.textContent = n > 0 ? String(n) : '';
+    });
+  }
+  function keepCounts() {
+    try { sessionStorage.setItem('cu_counts', JSON.stringify({ at: Date.now(), data: counts })); } catch (err) {}
+  }
+  function sendVote(key, on) {
+    return fetch(API + '/vote', { method: 'POST', body: JSON.stringify({ key: key, vid: voterId(), on: on }) })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res && res.ok && counts) { counts[key] = res.n; keepCounts(); paintCounts(); }
+      }).catch(function () {});
+  }
+  function topList() {
+    var box = document.getElementById('toplist');
+    if (!box || !counts) return;
+    var byKey = {};
+    (window.SEARCH_INDEX || []).forEach(function (r) { var k = favKeyOf(r[1]); if (k && !byKey[k]) byKey[k] = r; });
+    box.innerHTML = '';
+    var total = 0;
+    FAV_GROUPS.forEach(function (g) {
+      var keys = Object.keys(counts).filter(function (k) { return k.indexOf(g[0] + ':') === 0 && byKey[k] && counts[k] > 0; });
+      if (!keys.length) return;
+      keys.sort(function (a, b) { return counts[b] - counts[a] || (byKey[a][0] < byKey[b][0] ? -1 : 1); });
+      keys = keys.slice(0, 12);
+      total += keys.length;
+      var h = document.createElement('h2'); h.textContent = g[1]; box.appendChild(h);
+      var grid = document.createElement('div'); grid.className = 'cards'; box.appendChild(grid);
+      keys.forEach(function (k, i) {
+        var r = byKey[k], card = document.createElement('div');
+        card.className = 'card';
+        var rk = document.createElement('span'); rk.className = 'rank'; rk.textContent = '#' + (i + 1); card.appendChild(rk);
+        var a = document.createElement('a'); a.href = ROOT + r[1];
+        if (r[3]) { var im = document.createElement('img'); im.className = 'cardimg'; im.src = ROOT + r[3]; im.alt = ''; a.appendChild(im); }
+        var b = document.createElement('b'); b.textContent = r[0]; a.appendChild(b);
+        card.appendChild(a);
+        var sp = document.createElement('span'); sp.className = 'dim'; sp.textContent = r[2]; card.appendChild(sp);
+        card.appendChild(favButton(k, true));
+        grid.appendChild(card);
+      });
+    });
+    document.getElementById('topempty').style.display = total ? 'none' : '';
+    favPaint();
+    paintCounts();
+  }
+  if (API && window.fetch) {
+    CubeFavs.onChange.push(function (key, on) {
+      if (counts) { counts[key] = Math.max(0, (counts[key] || 0) + (on ? 1 : -1)); keepCounts(); paintCounts(); }
+      sendVote(key, on);
+    });
+    var gotCounts = function (data) {
+      counts = data || {};
+      paintCounts();
+      topList();
+      // Favoritos marcados antes de que existiera el contador: se envían una sola vez
+      var synced = false;
+      try { synced = !!localStorage.getItem('cu_synced'); } catch (err) { synced = true; }
+      if (!synced) {
+        try { localStorage.setItem('cu_synced', '1'); } catch (err) {}
+        CubeFavs.all().reduce(function (p, k) { return p.then(function () { return sendVote(k, true); }); }, Promise.resolve());
+      }
+    };
+    var cached = null;
+    try { cached = JSON.parse(sessionStorage.getItem('cu_counts')); } catch (err) {}
+    if (cached && Date.now() - cached.at < 60000 && !document.getElementById('toplist')) gotCounts(cached.data);
+    else fetch(API + '/counts').then(function (r) { return r.json(); }).then(function (data) {
+      counts = data; keepCounts(); gotCounts(data);
+    }).catch(function () {});
+  }
+
   // Otra pestaña cambió los favoritos: ponerse al día
   window.addEventListener('storage', function (ev) {
     if (ev.key !== FAV_KEY) return;
