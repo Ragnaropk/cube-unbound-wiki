@@ -4,6 +4,17 @@
     return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
   }
 
+  // ---- Vista a través del traductor de Google: poner el inglés escrito a mano (data-en)
+  // en los términos de juego que la máquina traduce mal, y protegerlos de la traducción.
+  if (/\.translate\.goog$/.test(location.hostname)) {
+    document.documentElement.classList.add('viatr');
+    document.querySelectorAll('[data-en]').forEach(function (el) {
+      el.textContent = el.getAttribute('data-en');
+      el.setAttribute('translate', 'no');
+      el.classList.add('notranslate');
+    });
+  }
+
   // ---- Buscador global
   var q = document.getElementById('q'), box = document.getElementById('results');
   var idx = (window.SEARCH_INDEX || []).map(function (r) { return { n: r[0], u: r[1], t: r[2], i: r[3], k: norm(r[0]) }; });
