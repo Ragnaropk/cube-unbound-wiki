@@ -362,6 +362,14 @@
     if (document.getElementById('favlist')) favList(); else favPaint();
   });
 
+  // ---- Contar descargas: el botón lleva data-dl con el id del contador del Worker
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest && ev.target.closest('a[data-dl]');
+    var api = window.FAV_API || '';
+    if (!a || !api || !navigator.sendBeacon) return;
+    try { navigator.sendBeacon(api + '/d/' + a.getAttribute('data-dl')); } catch (err) { /* la descarga sigue igual */ }
+  });
+
   // ---- Cerrar el menú móvil al elegir página
   document.querySelectorAll('.side a').forEach(function (a) {
     a.addEventListener('click', function () { document.body.classList.remove('navopen'); });
