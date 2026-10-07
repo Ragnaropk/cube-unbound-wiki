@@ -202,3 +202,6 @@ figcaption{color:var(--dim);font-size:.88rem;margin-top:6px}
 .waitoff form{display:grid;gap:10px;margin-top:10px}
 .enlink{color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-weight:600;white-space:nowrap}
 .enlink:hover{border-color:var(--gold);text-decoration:none}
+.dlbox{background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin:16px 0}
+.dlbox h2{margin-top:0;border:0}
+.btn.big{font-size:1.15rem;padding:12px 24px}
