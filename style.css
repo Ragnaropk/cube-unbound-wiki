@@ -205,3 +205,6 @@ figcaption{color:var(--dim);font-size:.88rem;margin-top:6px}
 .dlbox{background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin:16px 0}
 .dlbox h2{margin-top:0;border:0}
 .btn.big{font-size:1.15rem;padding:12px 24px}
+.weblink{color:var(--text);border:1px solid var(--gold);border-radius:8px;padding:6px 12px;font-weight:600;white-space:nowrap}
+.weblink:hover{text-decoration:none;background:var(--panel)}
+@media (max-width:900px){.weblink{display:none}}
