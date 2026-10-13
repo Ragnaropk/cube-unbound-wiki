@@ -215,3 +215,5 @@ figcaption{color:var(--dim);font-size:.88rem;margin-top:6px}
 .alpha-card{display:flex;align-items:center;gap:8px;padding:4px 8px;border:1px solid var(--line);border-radius:10px;background:var(--bg2);color:var(--text);font-size:.9rem}
 .alpha-card:hover{border-color:var(--gold);text-decoration:none}.alpha-card img{width:32px;height:32px;object-fit:contain}
 .platforms{margin:10px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:8px}.btn.plat{padding:5px 14px;font-size:.9rem}
+.cardlink{display:block;color:inherit}.cardlink:hover{text-decoration:none}.cardlink:hover b{color:var(--gold)}
+.card a.il{white-space:normal}
