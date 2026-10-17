@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cómo hacer tu propia mazmorra · Wiki de Cube Unbound</title>
+<meta name="description" content="Guía para modders: crea una mazmorra nueva para Cube Unbound con dos archivos JSON, la horda y la mazmorra.">
+<link rel="icon" href="img/favicon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <button class="burger" aria-label="Menú" onclick="document.body.classList.toggle('navopen')">☰</button>
+  <a class="brand notranslate" translate="no" href="index.html"><img src="img/logo_small.jpg" alt=""><span>Cube Unbound <b>Wiki</b></span></a>
+  <a class="weblink" href="https://ragnaropk.github.io/cubeunbound/" rel="noopener" data-en="Game site">Web del juego</a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Buscar criaturas, objetos, biomas…" autocomplete="off">
+    <div id="results"></div>
+  </div>
+  <a class="enlink notranslate" translate="no" href="https://translate.google.com/translate?sl=es&amp;tl=en&amp;u=https%3A%2F%2Fragnaropk.github.io%2Fcube-unbound-wiki%2Fmazmorra-propia.html" rel="noopener" title="View this page in English (automatic translation)">EN</a>
+  <a class="dclink" href="https://discord.gg/6Q6FCpYM77" rel="noopener" title="Únete al Discord">Discord</a>
+  <a class="favlink" href="favoritos.html" title="Mis favoritos"><span aria-hidden="true">♥</span> <span id="favcount">0</span></a>
+</header>
+<div class="shell">
+<nav class="side"><div class="navg"><h4 data-en="The game">El juego</h4><a data-en="Home" href="index.html">Portada</a><a data-en="Download the alpha" href="descarga.html">Descargar la alfa</a><a data-en="What each alpha brings" href="alfas.html">Qué trae cada alfa</a><a data-en="About (English)" href="en.html">About (English)</a><a data-en="Game site and store" href="https://ragnaropk.github.io/cubeunbound/" rel="noopener">Web y compra</a><a data-en="Getting started" href="empezar.html">Primeros pasos</a><a data-en="Controls" href="controles.html">Controles</a><a data-en="Gallery" href="galeria.html">Galería</a><a data-en="Coming next" href="futuro.html">Lo que viene</a><a data-en="My favorites" href="favoritos.html">Mis favoritos</a><a data-en="Most loved" href="populares.html">Lo más querido</a><a data-en="Alpha waitlist" href="alfa.html">Lista de espera de la alfa</a></div><div class="navg"><h4 data-en="Character">Personaje</h4><a data-en="Races and skills" href="razas.html">Razas y habilidades</a><a data-en="Combat and progression" href="combate.html">Combate y progresión</a><a data-en="Gear sets" href="conjuntos.html">Conjuntos de equipo</a><a data-en="Loot and rarity" href="rareza.html">Botín y rareza</a><a data-en="Pets and mounts" href="mascotas.html">Mascotas y monturas</a><a data-en="Codex and achievements" href="codice.html">Códice y logros</a></div><div class="navg"><h4 data-en="Creatures">Criaturas</h4><a data-en="Bestiary" href="bestiario.html">Bestiario</a><a data-en="Bosses and uniques" href="jefes.html">Jefes y únicos</a><a data-en="Factions and hordes" href="facciones.html">Facciones y hordas</a></div><div class="navg"><h4 data-en="Items">Objetos</h4><a data-en="All items" href="objetos.html">Todos los objetos</a><a data-en="Crafting and stations" href="fabricacion.html">Fabricación y estaciones</a><a data-en="Ores and mining" href="minerales.html">Minerales y minería</a><a data-en="Furniture and decoration" href="muebles.html">Muebles y decoración</a></div><div class="navg"><h4 data-en="World">Mundo</h4><a data-en="Biomes and zones" href="biomas.html">Biomas y zonas</a><a data-en="Weather and seasons" href="clima.html">Clima y estaciones</a><a data-en="Dungeons" href="mazmorras.html">Mazmorras</a><a data-en="Structures" href="estructuras.html">Estructuras y ciudades</a><a data-en="Vehicles" href="vehiculos.html">Vehículos</a><a data-en="World names" href="nombres.html">Nombres del mundo</a></div><div class="navg"><h4 data-en="Society">Sociedad</h4><a data-en="Trade and quests" href="economia.html">Comercio y encargos</a><a data-en="Multiplayer" href="multijugador.html">Multijugador</a><a data-en="Clans and sieges" href="clanes.html">Clanes y asedios</a></div><div class="navg"><h4 data-en="Professions">Oficios</h4><a data-en="Fishing" href="pesca.html">Pesca</a><a data-en="Farming" href="cultivos.html">Cultivos</a><a data-en="Cooking and food" href="cocina.html">Cocina y comida</a></div><div class="navg"><h4 data-en="Community">Comunidad</h4><a data-en="Mods portal" href="comunidad/index.html">Portal de mods</a><a data-en="Modding guide" href="modding.html">Guía de mods</a><a class="on" data-en="Make your own dungeon" href="mazmorra-propia.html">Tu propia mazmorra</a><a data-en="Data reference" href="modding-referencia.html">Referencia de datos</a></div></nav>
+<main>
+<h1>Cómo hacer tu propia mazmorra</h1><p class="lead">Una mazmorra nueva son dos archivos JSON: la horda que vive dentro y la propia mazmorra. El juego la construye sola en el mundo: los pisos, las salas con sus rejas, la arena del jefe, la sala del tesoro y el portal de vuelta. No hace falta programar.</p><div class="note">Vale para la <b>Alfa 0.2.1</b> (la gratuita) y las siguientes. Como ejemplo haremos <b>El Osario sin Nombre</b>, una cripta de esqueletos en bosques y llanuras. ¿Es tu primer mod? Lee antes la <a href="modding.html">guía de mods</a>.</div><h2>Paso 1: la horda</h2><p>La horda son los enemigos que salen en cada sala. Crea <code>mods/horde/hordes/legion_osario.json</code>:</p><pre><code>{
+  &quot;id&quot;: &quot;legion_osario&quot;,
+  &quot;name&quot;: &quot;Legión del Osario&quot;,
+  &quot;countScale&quot;: 1.0,
+  &quot;units&quot;: [
+    {
+      &quot;mob&quot;: &quot;crypt_skeleton&quot;,
+      &quot;weight&quot;: 60
+    },
+    {
+      &quot;mob&quot;: &quot;bone_sniper&quot;,
+      &quot;weight&quot;: 25
+    },
+    {
+      &quot;mob&quot;: &quot;acolyte_necromancer&quot;,
+      &quot;weight&quot;: 15,
+      &quot;fromLevel&quot;: 12
+    }
+  ]
+}</code></pre><table class="data"><thead><tr><th>Campo</th><th>Qué es</th></tr></thead><tbody><tr><td><code>id</code></td><td>Identificador único de la horda. La mazmorra la nombra con él.</td></tr><tr><td><code>name</code></td><td>Nombre visible.</td></tr><tr><td><code>countScale</code></td><td>Multiplica cuántos enemigos salen por sala (de 0,01 a 20; 1 = normal). La cantidad base según el nivel está en <code>mods/horde/rules.json</code>.</td></tr><tr><td><code>units</code></td><td>Las tropas. Cada una lleva <code>mob</code> (el id de una criatura de <code>mods/mobs</code> o de <code>mods/factions</code>), <code>weight</code> (su proporción: aquí, 60 esqueletos por cada 25 francotiradores) y, si quieres, <code>fromLevel</code> (desde qué nivel de mazmorra aparece; por defecto, desde el 1).</td></tr></tbody></table><p>Criaturas de hueso que ya existen: <a href="criatura/crypt_skeleton.html"><code>crypt_skeleton</code></a> (Esqueleto Guardián de Cripta), <a href="criatura/bone_sniper.html"><code>bone_sniper</code></a> (Arquero Óseo de Tiro Rápido), <a href="criatura/acolyte_necromancer.html"><code>acolyte_necromancer</code></a> (Nigromante de Túnica Rota), <a href="criatura/lich_commander.html"><code>lich_commander</code></a> (Señor de la Cripta Esquelético), <a href="criatura/undead_horde.html"><code>undead_horde</code></a> (Esqueleto de la horda), <a href="criatura/undead_archer.html"><code>undead_archer</code></a> (Arquero esquelético), <a href="criatura/undead_caster.html"><code>undead_caster</code></a> (Nigromante de hueso). Cada una muestra su id al pie de su página del <a href="bestiario.html">bestiario</a>.</p><p class="small dim">Desde la Alfa 0.5, los archivos de <code>mods/mobs</code> van ordenados en subcarpetas (<code>fauna/</code>, <code>bosses/</code>, <code>uniques/</code>). El id es el mismo, así que la horda no cambia.</p><h2>Paso 2: la mazmorra</h2><p>Crea <code>mods/dungeons/osario.json</code>:</p><pre><code>{
+  &quot;format&quot;: 1,
+  &quot;id&quot;: &quot;osario&quot;,
+  &quot;name&quot;: &quot;El Osario sin Nombre&quot;,
+  &quot;biomes&quot;: [
+    &quot;forest&quot;,
+    &quot;plains&quot;
+  ],
+  &quot;km&quot;: [
+    0.5,
+    3
+  ],
+  &quot;level&quot;: 8,
+  &quot;floors&quot;: 2,
+  &quot;rooms&quot;: 7,
+  &quot;faction&quot;: &quot;legion_osario&quot;,
+  &quot;boss&quot;: &quot;torvald&quot;,
+  &quot;weight&quot;: 10,
+  &quot;theme&quot;: {
+    &quot;wall&quot;: &quot;cobblestone&quot;,
+    &quot;wallAlt&quot;: &quot;mossy_stone&quot;,
+    &quot;floor&quot;: &quot;stone&quot;,
+    &quot;ceiling&quot;: &quot;stone&quot;,
+    &quot;pillar&quot;: &quot;wood&quot;,
+    &quot;light&quot;: &quot;lantern&quot;,
+    &quot;accent&quot;: &quot;mushroom_brown&quot;
+  }
+}</code></pre><table class="data"><thead><tr><th>Campo</th><th>Qué es</th><th>Si no lo pones</th></tr></thead><tbody><tr><td><code>id</code></td><td><b>Obligatorio.</b> Identificador único.</td><td>—</td></tr><tr><td><code>biomes</code></td><td><b>Obligatorio.</b> En qué biomas puede salir (al menos uno). Los ids están en la <a href="modding-referencia.html">referencia de datos</a>.</td><td>—</td></tr><tr><td><code>name</code></td><td>Nombre que sale al entrar y en el mapa.</td><td>el id</td></tr><tr><td><code>faction</code></td><td>El <code>id</code> de la horda del paso 1.</td><td>salas vacías</td></tr><tr><td><code>boss</code></td><td>El jefe de la arena: una criatura con bloque <code>"boss"</code>. Aquí, <a href="criatura/torvald.html">Capitán Esquelético Torvald</a>. Todos los jefes están en <a href="jefes.html">Jefes y únicos</a>.</td><td>sin jefe</td></tr><tr><td><code>level</code></td><td>Nivel de la mazmorra, de 1 a 500: el de sus enemigos y su botín.</td><td>1</td></tr><tr><td><code>floors</code></td><td>Pisos, de 1 a 5.</td><td>1</td></tr><tr><td><code>rooms</code></td><td>Salas de combate repartidas entre los pisos, de 2 a 14 (además de la arena y el tesoro).</td><td>6</td></tr><tr><td><code>km</code></td><td><code>[mín, máx]</code>: a cuántos kilómetros del inicio del mundo puede salir. Nunca sale a menos de 0,25 km.</td><td>a cualquier distancia</td></tr><tr><td><code>weight</code></td><td>Cuánto sale frente a las demás mazmorras que encajan en el mismo sitio, de 0 a 1000.</td><td>10</td></tr><tr><td><code>style</code></td><td><code>crypt</code> (cripta), <code>mine</code> (mina) o <code>sunken</code> (hundida: sólo sale bajo el agua).</td><td>crypt</td></tr><tr><td><code>flood</code></td><td>Agua dentro: <code>none</code>, <code>arena</code> (sólo la arena) o <code>all</code>.</td><td>all en las hundidas; none en las demás</td></tr><tr><td><code>y</code></td><td>Altura de la mazmorra, de 8 a 60.</td><td>la elige el juego</td></tr><tr><td><code>theme</code></td><td>Los bloques: <code>wall</code> (pared), <code>wallAlt</code> (pared alterna), <code>floor</code> (suelo), <code>ceiling</code> (techo), <code>pillar</code> (columnas), <code>light</code> (luces), <code>accent</code> (adornos) y, en las minas, <code>ore</code> y <code>oreAlt</code> (vetas). Los ids de bloque están en la <a href="modding-referencia.html">referencia</a>.</td><td>piedra labrada y faroles</td></tr></tbody></table><p class="small dim"><code>"format": 1</code> no hace falta, pero así quedan igual que los archivos del juego.</p><h2>Paso 3: en inglés (opcional)</h2><p>Para que el nombre salga traducido a quien juega en inglés, crea <code>mods/lang/en/dungeons/osario.json</code> y <code>mods/lang/en/horde/hordes/legion_osario.json</code>:</p><pre><code>{
+  &quot;id&quot;: &quot;osario&quot;,
+  &quot;name&quot;: &quot;The Nameless Ossuary&quot;
+}</code></pre><pre><code>{
+  &quot;id&quot;: &quot;legion_osario&quot;,
+  &quot;name&quot;: &quot;Ossuary Legion&quot;
+}</code></pre><h2>Paso 4: probarla</h2><ol><li>Los datos se leen al arrancar: cierra el juego y ábrelo de nuevo (<kbd>F4</kbd> sólo recarga modelos, sonidos y packs).</li><li>Las mazmorras se colocan al generar el terreno: búscala en un <b>mundo nuevo</b> o en zonas que aún no hayas visitado.</li><li>Para encontrarla rápido mientras pruebas, sube <code>weight</code> a 1000 y pon <code>km</code> cerca del inicio, por ejemplo <code>[0.3, 2]</code>. Sale en el mapa cuando pasas cerca de su entrada. Después vuelve a dejar el <code>weight</code> en 10.</li></ol><div class="note"><b>Si no aparece nunca</b>, revisa el archivo de la mazmorra: si tiene un error (un bioma o un bloque que no existe, un <code>style</code> mal escrito, una coma de más), el juego la salta <b>sin avisar</b>. Los errores de la horda, en cambio, sí salen en el aviso de arriba de la pantalla al arrancar. Y si la mazmorra nombra una horda que no existe, al entrar en cada sala verás «no hay horda …» y la sala se da por despejada.</div><p>Para jugarla en LAN o en un servidor, todos necesitan la misma carpeta <code>mods</code>: el juego avisa si no coincide.</p><h2>Próximamente: spawners</h2><p>En la <b>Alfa 0.6</b> llegan los <b>spawners</b>: bloques que van sacando enemigos, como en Minecraft, y que se pueden romper. Todavía no existen y su formato no está cerrado, así que de momento no los pongas en tus archivos. ¿Tienes ideas de cómo deberían funcionar? Cuéntaselas a Santiago en el <a href="https://discord.gg/6Q6FCpYM77" rel="noopener">Discord</a>.</p><p>¿Ya la tienes? Compártela en el <a href="comunidad/index.html">portal de mods</a>.</p><hr><section lang="en" id="en"><h2>Make your own dungeon (English)</h2><p>A new dungeon is two JSON files: the <b>horde</b> that lives inside and the <b>dungeon</b> itself. The game builds it in the world on its own: floors, gated rooms, the boss arena, the treasure room and the portal back. No coding needed. Works from <b>Alpha 0.2.1</b> (the free one) on.</p><ol><li><b>Horde</b>: <code>mods/horde/hordes/&lt;id&gt;.json</code> with <code>id</code>, <code>name</code>, <code>countScale</code> (0.01–20, multiplies how many enemies per room) and <code>units</code>: each one has <code>mob</code> (a creature id from <code>mods/mobs</code> or <code>mods/factions</code>), <code>weight</code> (its share) and optionally <code>fromLevel</code> (from which dungeon level it shows up). See the first example above.</li><li><b>Dungeon</b>: <code>mods/dungeons/&lt;id&gt;.json</code>. Required: <code>id</code> and <code>biomes</code> (at least one). Optional: <code>name</code>, <code>faction</code> (the horde id), <code>boss</code> (a creature with a <code>"boss"</code> block), <code>level</code> 1–500, <code>floors</code> 1–5, <code>rooms</code> 2–14, <code>km</code> [min, max] from the world start, <code>weight</code> 0–1000, <code>style</code> crypt / mine / sunken (sunken only spawns underwater), <code>flood</code> none / arena / all, <code>y</code> 8–60 and <code>theme</code> with block ids. See the second example above; biome and block ids are in the <a href="modding-referencia.html">data reference</a>.</li><li><b>English name</b> (optional): <code>mods/lang/en/dungeons/&lt;id&gt;.json</code> with <code>{"id": "...", "name": "..."}</code>, and the same for the horde in <code>mods/lang/en/horde/hordes/</code>.</li><li><b>Test it</b>: restart the game (data is read at startup) and look in a <b>new world</b> or in unexplored areas. To find it fast, use <code>"weight": 1000</code> and <code>"km": [0.3, 2]</code> while testing. If it never shows up, check the dungeon file: a dungeon with an error is <b>skipped without a warning</b> for now. Horde errors do show up at startup.</li></ol><p><b>Coming in Alpha 0.6: spawners</b>, blocks that keep spawning enemies and can be broken. They do not exist yet and their format is not final. Ideas are welcome on our <a href="https://discord.gg/6Q6FCpYM77" rel="noopener">Discord</a>.</p></section>
+<footer>Wiki generada a partir de los datos del juego (<code>mods/</code>) el 17/10/2026. Cube Unbound está en desarrollo: los valores pueden cambiar.</footer>
+</main>
+</div>
+<script>var ROOT="";var FAV_API="https://cube-unbound-corazones.neurostudios-contacto.workers.dev";</script>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "2e7e2164b6b44c80b615bdc271c537fc"}'></script>
+</body>
+</html>
