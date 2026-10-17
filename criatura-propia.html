@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tu propia criatura · Wiki de Cube Unbound</title>
+<meta name="description" content="Tutorial para modders: crea una criatura nueva para Cube Unbound con modelos de MagicaVoxel.">
+<link rel="icon" href="img/favicon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <button class="burger" aria-label="Menú" onclick="document.body.classList.toggle('navopen')">☰</button>
+  <a class="brand notranslate" translate="no" href="index.html"><img src="img/logo_small.jpg" alt=""><span>Cube Unbound <b>Wiki</b></span></a>
+  <a class="weblink" href="https://ragnaropk.github.io/cubeunbound/" rel="noopener" data-en="Game site">Web del juego</a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Buscar criaturas, objetos, biomas…" autocomplete="off">
+    <div id="results"></div>
+  </div>
+  <a class="enlink notranslate" translate="no" href="https://translate.google.com/translate?sl=es&amp;tl=en&amp;u=https%3A%2F%2Fragnaropk.github.io%2Fcube-unbound-wiki%2Fcriatura-propia.html" rel="noopener" title="View this page in English (automatic translation)">EN</a>
+  <a class="dclink" href="https://discord.gg/6Q6FCpYM77" rel="noopener" title="Únete al Discord">Discord</a>
+  <a class="favlink" href="favoritos.html" title="Mis favoritos"><span aria-hidden="true">♥</span> <span id="favcount">0</span></a>
+</header>
+<div class="shell">
+<nav class="side"><div class="navg"><h4 data-en="The game">El juego</h4><a data-en="Home" href="index.html">Portada</a><a data-en="Download the alpha" href="descarga.html">Descargar la alfa</a><a data-en="What each alpha brings" href="alfas.html">Qué trae cada alfa</a><a data-en="About (English)" href="en.html">About (English)</a><a data-en="Game site and store" href="https://ragnaropk.github.io/cubeunbound/" rel="noopener">Web y compra</a><a data-en="Getting started" href="empezar.html">Primeros pasos</a><a data-en="Controls" href="controles.html">Controles</a><a data-en="Gallery" href="galeria.html">Galería</a><a data-en="Coming next" href="futuro.html">Lo que viene</a><a data-en="My favorites" href="favoritos.html">Mis favoritos</a><a data-en="Most loved" href="populares.html">Lo más querido</a><a data-en="Alpha waitlist" href="alfa.html">Lista de espera de la alfa</a></div><div class="navg"><h4 data-en="Character">Personaje</h4><a data-en="Races and skills" href="razas.html">Razas y habilidades</a><a data-en="Combat and progression" href="combate.html">Combate y progresión</a><a data-en="Gear sets" href="conjuntos.html">Conjuntos de equipo</a><a data-en="Loot and rarity" href="rareza.html">Botín y rareza</a><a data-en="Pets and mounts" href="mascotas.html">Mascotas y monturas</a><a data-en="Codex and achievements" href="codice.html">Códice y logros</a></div><div class="navg"><h4 data-en="Creatures">Criaturas</h4><a data-en="Bestiary" href="bestiario.html">Bestiario</a><a data-en="Bosses and uniques" href="jefes.html">Jefes y únicos</a><a data-en="Factions and hordes" href="facciones.html">Facciones y hordas</a></div><div class="navg"><h4 data-en="Items">Objetos</h4><a data-en="All items" href="objetos.html">Todos los objetos</a><a data-en="Crafting and stations" href="fabricacion.html">Fabricación y estaciones</a><a data-en="Ores and mining" href="minerales.html">Minerales y minería</a><a data-en="Furniture and decoration" href="muebles.html">Muebles y decoración</a></div><div class="navg"><h4 data-en="World">Mundo</h4><a data-en="Biomes and zones" href="biomas.html">Biomas y zonas</a><a data-en="Weather and seasons" href="clima.html">Clima y estaciones</a><a data-en="Dungeons" href="mazmorras.html">Mazmorras</a><a data-en="Structures" href="estructuras.html">Estructuras y ciudades</a><a data-en="Vehicles" href="vehiculos.html">Vehículos</a><a data-en="World names" href="nombres.html">Nombres del mundo</a></div><div class="navg"><h4 data-en="Society">Sociedad</h4><a data-en="Trade and quests" href="economia.html">Comercio y encargos</a><a data-en="Multiplayer" href="multijugador.html">Multijugador</a><a data-en="Clans and sieges" href="clanes.html">Clanes y asedios</a></div><div class="navg"><h4 data-en="Professions">Oficios</h4><a data-en="Fishing" href="pesca.html">Pesca</a><a data-en="Farming" href="cultivos.html">Cultivos</a><a data-en="Cooking and food" href="cocina.html">Cocina y comida</a></div><div class="navg"><h4 data-en="Community">Comunidad</h4><a data-en="Mods portal" href="comunidad/index.html">Portal de mods</a><a data-en="Modding guide" href="modding.html">Guía de mods</a><a data-en="Modding tutorials" href="tutoriales.html">Tutoriales</a><a data-en="Data reference" href="modding-referencia.html">Referencia de datos</a></div></nav>
+<main>
+<h1>Tu propia criatura</h1><p class="lead">Una criatura es un archivo JSON con sus piezas (modelos de MagicaVoxel), cómo se mueve, cuánto aguanta, dónde vive y qué suelta. Empezaremos con los modelos del jabalí del juego y después verás cómo hacer los tuyos.</p><div class="note">Para la <b>Alfa 0.2.1</b>, la que se descarga gratis. Todo lo que hay aquí funciona en ella. ¿Es tu primer mod? Lee antes la <a href="modding.html">guía de mods</a>. Los demás tutoriales están en <a href="tutoriales.html">Tutoriales</a>.</div><h2>Paso 1: el archivo</h2><p>Crea <code>mods/mobs/ash_boar.json</code>, un archivo por criatura:</p><pre><code>{
+  &quot;id&quot;: &quot;ash_boar&quot;,
+  &quot;name&quot;: &quot;Jabalí de ceniza&quot;,
+  &quot;description&quot;: &quot;Un jabalí negro como el carbón que embiste a quien se acerque.&quot;,
+  &quot;style&quot;: &quot;quadruped&quot;,
+  &quot;voxelSize&quot;: 0.1,
+  &quot;temper&quot;: &quot;hostile&quot;,
+  &quot;movement&quot;: {
+    &quot;speed&quot;: 3.2,
+    &quot;width&quot;: 0.9,
+    &quot;height&quot;: 1.1
+  },
+  &quot;stats&quot;: {
+    &quot;health&quot;: 45,
+    &quot;armor&quot;: 2,
+    &quot;damage&quot;: 9,
+    &quot;regen&quot;: 0.5,
+    &quot;level&quot;: 5
+  },
+  &quot;spawn&quot;: {
+    &quot;count&quot;: 2,
+    &quot;group&quot;: 2,
+    &quot;biomes&quot;: [&quot;savanna&quot;, &quot;desert&quot;]
+  },
+  &quot;loot&quot;: [
+    {
+      &quot;item&quot;: &quot;raw_meat&quot;,
+      &quot;min&quot;: 1,
+      &quot;max&quot;: 2,
+      &quot;chance&quot;: 1.0
+    },
+    {
+      &quot;item&quot;: &quot;leather&quot;,
+      &quot;min&quot;: 1,
+      &quot;max&quot;: 1,
+      &quot;chance&quot;: 0.7
+    },
+    {
+      &quot;item&quot;: &quot;coal&quot;,
+      &quot;min&quot;: 1,
+      &quot;max&quot;: 3,
+      &quot;chance&quot;: 0.5
+    }
+  ],
+  &quot;parts&quot;: [
+    {
+      &quot;bone&quot;: &quot;foot_r&quot;,
+      &quot;model&quot;: &quot;mobs/boar_foot&quot;,
+      &quot;pivot&quot;: [1.5, 4, 1.5],
+      &quot;at&quot;: [2.8, 4, 4.5]
+    },
+    {
+      &quot;bone&quot;: &quot;foot_l&quot;,
+      &quot;model&quot;: &quot;mobs/boar_foot&quot;,
+      &quot;mirror&quot;: true,
+      &quot;pivot&quot;: [1.5, 4, 1.5],
+      &quot;at&quot;: [-2.8, 4, 4.5]
+    },
+    {
+      &quot;bone&quot;: &quot;foot_back_r&quot;,
+      &quot;model&quot;: &quot;mobs/boar_foot&quot;,
+      &quot;pivot&quot;: [1.5, 4, 1.5],
+      &quot;at&quot;: [2.8, 4, -4.5]
+    },
+    {
+      &quot;bone&quot;: &quot;foot_back_l&quot;,
+      &quot;model&quot;: &quot;mobs/boar_foot&quot;,
+      &quot;mirror&quot;: true,
+      &quot;pivot&quot;: [1.5, 4, 1.5],
+      &quot;at&quot;: [-2.8, 4, -4.5]
+    },
+    {
+      &quot;bone&quot;: &quot;body&quot;,
+      &quot;model&quot;: &quot;mobs/boar_body&quot;,
+      &quot;pivot&quot;: [4.5, 0, 7],
+      &quot;at&quot;: [0, 3, 0]
+    },
+    {
+      &quot;bone&quot;: &quot;head&quot;,
+      &quot;parent&quot;: &quot;body&quot;,
+      &quot;model&quot;: &quot;mobs/boar_head&quot;,
+      &quot;pivot&quot;: [4, 3, 1],
+      &quot;at&quot;: [0, 7, 6.5]
+    },
+    {
+      &quot;bone&quot;: &quot;tail&quot;,
+      &quot;parent&quot;: &quot;body&quot;,
+      &quot;model&quot;: &quot;mobs/boar_tail&quot;,
+      &quot;pivot&quot;: [0.5, 2.5, 3],
+      &quot;at&quot;: [0, 9, -7]
+    }
+  ]
+}</code></pre><table class="data"><thead><tr><th>Campo</th><th>Qué es</th></tr></thead><tbody><tr><td><code>id</code>, <code>name</code>, <code>description</code></td><td>Identificador único, nombre y texto del bestiario.</td></tr><tr><td><code>style</code></td><td>Cómo se anima: <code>biped</code> (dos patas), <code>quadruped</code> (cuatro), <code>hopper</code> (a saltos), <code>flyer</code> (vuela), <code>insect</code> o <code>swim</code> (nada).</td></tr><tr><td><code>voxelSize</code></td><td>Metros por vóxel: 0,1 en casi todas.</td></tr><tr><td><code>temper</code></td><td><code>passive</code> (huye), <code>defensive</code> (ataca si le atacas) u <code>hostile</code> (ataca al verte).</td></tr><tr><td><code>movement</code></td><td><code>speed</code> (metros por segundo) y su caja de choque: <code>width</code> y <code>height</code> en metros.</td></tr><tr><td><code>stats</code></td><td><code>health</code>, <code>armor</code>, <code>damage</code>, <code>regen</code> (vida por segundo) y <code>level</code>. Con <code>level</code> 1 toma el nivel de la zona donde aparece.</td></tr><tr><td><code>spawn</code></td><td><code>count</code> (cuántas hay cerca del jugador, de 0 a 64), <code>group</code> (de cuántas en cuántas, de 1 a 16), <code>biomes</code> y, si quieres, <code>hours</code>: <code>[desde, hasta]</code> en horas del juego (por ejemplo <code>[20, 6]</code> sólo de noche). Sin <code>spawn</code> sale en todos los biomas.</td></tr><tr><td><code>loot</code></td><td>Lo que suelta: <code>item</code>, <code>min</code>, <code>max</code> y <code>chance</code> (de 0 a 1).</td></tr><tr><td><code>parts</code></td><td>Las piezas del cuerpo: mira el paso 3.</td></tr></tbody></table><p>En <code>spawn.biomes</code> valen estas regiones: <code>ocean</code>, <code>beach</code>, <code>plains</code>, <code>forest</code>, <code>swamp</code>, <code>mountains</code>, <code>snowy</code>, <code>river</code>, <code>savanna</code>, <code>desert</code>, <code>jungle</code>.</p><h2>Paso 2: probarla</h2><ol><li>Reinicia el juego: las criaturas se leen al arrancar.</li><li>Ve a una sabana o un desierto y busca a tu alrededor. Para encontrarla rápido mientras pruebas, sube <code>count</code> a 10.</li></ol><p>Si algo está mal escrito, al arrancar sale un aviso arriba de la pantalla con el archivo y el motivo. El juego sigue funcionando y se salta lo que esté roto.</p><h2>Paso 3: tus propios modelos</h2><p>Cada pieza es un .vox aparte en <code>mods/models/</code>, y en <code>parts</code> se colocan:</p><table class="data"><thead><tr><th>Campo</th><th>Qué es</th></tr></thead><tbody><tr><td><code>bone</code></td><td>Qué hueso mueve la animación: <code>body</code>, <code>head</code>, <code>hand_r</code>, <code>hand_l</code>, <code>foot_r</code>, <code>foot_l</code>, <code>foot_back_r</code>, <code>foot_back_l</code>, <code>tail</code>, <code>wing_r</code>, <code>wing_l</code>, <code>foot_mid_r</code>, <code>foot_mid_l</code>, <code>extra</code>. La pieza <code>body</code> es obligatoria; <code>extra</code> son adornos rígidos (orejas, cuernos) y se puede repetir.</td></tr><tr><td><code>model</code></td><td>El .vox, sin extensión: <code>"mobs/ash_boar_head"</code> es <code>mods/models/mobs/ash_boar_head.vox</code>.</td></tr><tr><td><code>at</code></td><td><b>Obligatorio.</b> Dónde va la pieza, en vóxeles, contando desde los pies de la criatura (y = 0 es el suelo). Es absoluto, no relativo al padre.</td></tr><tr><td><code>pivot</code></td><td>El punto del modelo por el que gira (en vóxeles del propio .vox). Si no lo pones, el centro.</td></tr><tr><td><code>parent</code></td><td>El hueso de otra pieza, declarada antes, a la que va pegada (la cabeza al cuerpo).</td></tr><tr><td><code>mirror</code></td><td><code>true</code> refleja el modelo: con un solo .vox de pata haces la izquierda y la derecha.</td></tr><tr><td><code>rot</code></td><td>Giro en reposo, <code>[x, y, z]</code> en grados.</td></tr></tbody></table><ul><li>En MagicaVoxel, Z es arriba y el frente de la criatura mira hacia −Y (la vista frontal).</li><li>Haz cada pieza por separado (cuerpo, cabeza, una pata…) y guárdalas en <code>mods/models/mobs/</code>.</li><li>Lo más fácil es copiar los .vox del jabalí (<code>mods/models/mobs/boar_*.vox</code>), redibujarlos con otro nombre y mantener los mismos <code>at</code> y <code>pivot</code>. Si cambias el tamaño, ajústalos.</li><li>Como mucho, 32 piezas.</li></ul><hr><section lang="en" id="en"><h2>Make your own creature (English)</h2><p>One file per creature in <code>mods/mobs/&lt;id&gt;.json</code>. Main fields: <code>id</code>, <code>name</code>, <code>description</code>, <code>style</code> (<code>biped</code>, <code>quadruped</code>, <code>hopper</code>, <code>flyer</code>, <code>insect</code> or <code>swim</code>), <code>voxelSize</code>, <code>temper</code> (<code>passive</code>, <code>defensive</code> or <code>hostile</code>), <code>movement</code>, <code>stats</code>, <code>spawn</code> (<code>count</code> 0–64, <code>group</code> 1–16, <code>biomes</code> from <code>ocean</code>, <code>beach</code>, <code>plains</code>, <code>forest</code>, <code>swamp</code>, <code>mountains</code>, <code>snowy</code>, <code>river</code>, <code>savanna</code>, <code>desert</code>, <code>jungle</code>, optional <code>hours</code>), <code>loot</code> and <code>parts</code>. Each part has a <code>bone</code>, a <code>model</code> (.vox without extension), <code>at</code> (required: where it goes, in voxels from the feet), <code>pivot</code>, <code>parent</code>, <code>mirror</code> and <code>rot</code>. A <code>body</code> part is required. The example above reuses the boar models; restart the game to load it.</p></section>
+<footer>Wiki generada a partir de los datos del juego (<code>mods/</code>) el 17/10/2026. Cube Unbound está en desarrollo: los valores pueden cambiar.</footer>
+</main>
+</div>
+<script>var ROOT="";var FAV_API="https://cube-unbound-corazones.neurostudios-contacto.workers.dev";</script>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "2e7e2164b6b44c80b615bdc271c537fc"}'></script>
+</body>
+</html>

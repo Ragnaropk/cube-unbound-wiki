@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tu propia arma · Wiki de Cube Unbound</title>
+<meta name="description" content="Tutorial para modders: crea un arma nueva con su receta para Cube Unbound.">
+<link rel="icon" href="img/favicon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <button class="burger" aria-label="Menú" onclick="document.body.classList.toggle('navopen')">☰</button>
+  <a class="brand notranslate" translate="no" href="index.html"><img src="img/logo_small.jpg" alt=""><span>Cube Unbound <b>Wiki</b></span></a>
+  <a class="weblink" href="https://ragnaropk.github.io/cubeunbound/" rel="noopener" data-en="Game site">Web del juego</a>
+  <div class="search">
+    <input id="q" type="search" placeholder="Buscar criaturas, objetos, biomas…" autocomplete="off">
+    <div id="results"></div>
+  </div>
+  <a class="enlink notranslate" translate="no" href="https://translate.google.com/translate?sl=es&amp;tl=en&amp;u=https%3A%2F%2Fragnaropk.github.io%2Fcube-unbound-wiki%2Farma-propia.html" rel="noopener" title="View this page in English (automatic translation)">EN</a>
+  <a class="dclink" href="https://discord.gg/6Q6FCpYM77" rel="noopener" title="Únete al Discord">Discord</a>
+  <a class="favlink" href="favoritos.html" title="Mis favoritos"><span aria-hidden="true">♥</span> <span id="favcount">0</span></a>
+</header>
+<div class="shell">
+<nav class="side"><div class="navg"><h4 data-en="The game">El juego</h4><a data-en="Home" href="index.html">Portada</a><a data-en="Download the alpha" href="descarga.html">Descargar la alfa</a><a data-en="What each alpha brings" href="alfas.html">Qué trae cada alfa</a><a data-en="About (English)" href="en.html">About (English)</a><a data-en="Game site and store" href="https://ragnaropk.github.io/cubeunbound/" rel="noopener">Web y compra</a><a data-en="Getting started" href="empezar.html">Primeros pasos</a><a data-en="Controls" href="controles.html">Controles</a><a data-en="Gallery" href="galeria.html">Galería</a><a data-en="Coming next" href="futuro.html">Lo que viene</a><a data-en="My favorites" href="favoritos.html">Mis favoritos</a><a data-en="Most loved" href="populares.html">Lo más querido</a><a data-en="Alpha waitlist" href="alfa.html">Lista de espera de la alfa</a></div><div class="navg"><h4 data-en="Character">Personaje</h4><a data-en="Races and skills" href="razas.html">Razas y habilidades</a><a data-en="Combat and progression" href="combate.html">Combate y progresión</a><a data-en="Gear sets" href="conjuntos.html">Conjuntos de equipo</a><a data-en="Loot and rarity" href="rareza.html">Botín y rareza</a><a data-en="Pets and mounts" href="mascotas.html">Mascotas y monturas</a><a data-en="Codex and achievements" href="codice.html">Códice y logros</a></div><div class="navg"><h4 data-en="Creatures">Criaturas</h4><a data-en="Bestiary" href="bestiario.html">Bestiario</a><a data-en="Bosses and uniques" href="jefes.html">Jefes y únicos</a><a data-en="Factions and hordes" href="facciones.html">Facciones y hordas</a></div><div class="navg"><h4 data-en="Items">Objetos</h4><a data-en="All items" href="objetos.html">Todos los objetos</a><a data-en="Crafting and stations" href="fabricacion.html">Fabricación y estaciones</a><a data-en="Ores and mining" href="minerales.html">Minerales y minería</a><a data-en="Furniture and decoration" href="muebles.html">Muebles y decoración</a></div><div class="navg"><h4 data-en="World">Mundo</h4><a data-en="Biomes and zones" href="biomas.html">Biomas y zonas</a><a data-en="Weather and seasons" href="clima.html">Clima y estaciones</a><a data-en="Dungeons" href="mazmorras.html">Mazmorras</a><a data-en="Structures" href="estructuras.html">Estructuras y ciudades</a><a data-en="Vehicles" href="vehiculos.html">Vehículos</a><a data-en="World names" href="nombres.html">Nombres del mundo</a></div><div class="navg"><h4 data-en="Society">Sociedad</h4><a data-en="Trade and quests" href="economia.html">Comercio y encargos</a><a data-en="Multiplayer" href="multijugador.html">Multijugador</a><a data-en="Clans and sieges" href="clanes.html">Clanes y asedios</a></div><div class="navg"><h4 data-en="Professions">Oficios</h4><a data-en="Fishing" href="pesca.html">Pesca</a><a data-en="Farming" href="cultivos.html">Cultivos</a><a data-en="Cooking and food" href="cocina.html">Cocina y comida</a></div><div class="navg"><h4 data-en="Community">Comunidad</h4><a data-en="Mods portal" href="comunidad/index.html">Portal de mods</a><a data-en="Modding guide" href="modding.html">Guía de mods</a><a data-en="Modding tutorials" href="tutoriales.html">Tutoriales</a><a data-en="Data reference" href="modding-referencia.html">Referencia de datos</a></div></nav>
+<main>
+<h1>Tu propia arma (y su receta)</h1><p class="lead">Un arma nueva son dos archivos: el objeto (cómo es y cuánto pega) y la receta (con qué se fabrica). Con el modelo de una espada del juego funciona desde el primer momento; después le haces el tuyo.</p><div class="note">Para la <b>Alfa 0.2.1</b>, la que se descarga gratis. Todo lo que hay aquí funciona en ella. ¿Es tu primer mod? Lee antes la <a href="modding.html">guía de mods</a>. Los demás tutoriales están en <a href="tutoriales.html">Tutoriales</a>.</div><h2>Paso 1: el objeto</h2><p>Crea <code>mods/items/mi_arma.json</code>. Es una lista: en un mismo archivo caben varios objetos.</p><pre><code>[
+  {
+    &quot;id&quot;: &quot;bone_cleaver&quot;,
+    &quot;name&quot;: &quot;Cuchilla de hueso&quot;,
+    &quot;category&quot;: &quot;weapon&quot;,
+    &quot;color&quot;: &quot;iron_ore&quot;,
+    &quot;model&quot;: &quot;items/short_sword_iron&quot;,
+    &quot;grip&quot;: [1.5, 3.5, 2.0],
+    &quot;maxStack&quot;: 1,
+    &quot;weapon&quot;: {
+      &quot;type&quot;: &quot;melee&quot;,
+      &quot;style&quot;: &quot;heavy&quot;,
+      &quot;damage&quot;: 14,
+      &quot;cooldown&quot;: 0.7,
+      &quot;reach&quot;: 2.8,
+      &quot;arc&quot;: 110
+    }
+  }
+]</code></pre><table class="data"><thead><tr><th>Campo</th><th>Qué es</th></tr></thead><tbody><tr><td><code>id</code></td><td>Identificador único: minúsculas, números y <code>_</code> (48 como mucho).</td></tr><tr><td><code>name</code></td><td>El nombre que ve el jugador.</td></tr><tr><td><code>category</code></td><td><code>weapon</code> para un arma; también hay <code>tool</code>, <code>equipment</code>, <code>block</code> y <code>material</code>.</td></tr><tr><td><code>color</code></td><td>Un bloque cuyo color representa al objeto.</td></tr><tr><td><code>model</code></td><td>El modelo .vox, sin extensión, dentro de <code>mods/models/</code>. Aquí, la espada corta de hierro del juego.</td></tr><tr><td><code>grip</code></td><td>Por dónde la agarra la mano: <code>[x, y, z]</code> en vóxeles del modelo.</td></tr><tr><td><code>maxStack</code></td><td>Cuántas caben en un hueco del inventario (1 en las armas).</td></tr><tr><td><code>weapon.type</code></td><td><code>melee</code> (cuerpo a cuerpo) o <code>bow</code> (arco).</td></tr><tr><td><code>weapon.style</code></td><td>El golpe: <code>slash</code> (tajo), <code>heavy</code> (golpe pesado) o <code>thrust</code> (estocada).</td></tr><tr><td><code>weapon.damage</code></td><td>Daño por golpe. La espada corta de hierro hace 10.</td></tr><tr><td><code>weapon.cooldown</code></td><td>Segundos entre golpe y golpe (de 0,05 a 10).</td></tr><tr><td><code>weapon.reach</code></td><td>Alcance en metros (de 0,5 a 8).</td></tr><tr><td><code>weapon.arc</code></td><td>Ancho del barrido en grados (de 5 a 360): 30 en una lanza, 140 en un mandoble.</td></tr></tbody></table><p class="small dim">Un arco usa además <code>projectileSpeed</code> (de 1 a 200) y <code>gravity</code> (de 0 a 60) para la flecha. Mira el <code>bow</code> de <code>mods/items/gear_weapons.json</code>.</p><h2>Paso 2: la receta</h2><p>Crea <code>mods/recipes/mi_arma.json</code>, también una lista:</p><pre><code>[
+  {
+    &quot;id&quot;: &quot;bone_cleaver&quot;,
+    &quot;result&quot;: &quot;bone_cleaver&quot;,
+    &quot;count&quot;: 1,
+    &quot;ingredients&quot;: [
+      {
+        &quot;item&quot;: &quot;bone&quot;,
+        &quot;count&quot;: 4
+      },
+      {
+        &quot;item&quot;: &quot;iron_ingot&quot;,
+        &quot;count&quot;: 1
+      },
+      {
+        &quot;item&quot;: &quot;stick&quot;,
+        &quot;count&quot;: 1
+      }
+    ],
+    &quot;station&quot;: &quot;anvil&quot;
+  }
+]</code></pre><table class="data"><thead><tr><th>Campo</th><th>Qué es</th></tr></thead><tbody><tr><td><code>id</code></td><td>Identificador de la receta.</td></tr><tr><td><code>result</code> y <code>count</code></td><td>Qué objeto sale y cuántos.</td></tr><tr><td><code>ingredients</code></td><td>Los materiales: <code>item</code> y <code>count</code>. Cada material, una sola vez.</td></tr><tr><td><code>station</code></td><td>Dónde se fabrica: <code>hand</code>, <code>workbench</code>, <code>forge</code>, <code>anvil</code>, <code>cauldron</code>, <code>loom</code>, <code>campfire</code>, <code>cooking_pot</code>, <code>oven</code>, <code>barrel</code>. Sin <code>station</code>, a mano.</td></tr></tbody></table><h2>Paso 3: probarla</h2><ol><li>Cierra el juego y ábrelo de nuevo: los objetos y las recetas se leen al arrancar.</li><li>Usa un yunque: la receta sale en su lista de fabricar. Busca «cuchilla» en el buscador.</li></ol><p>Si algo está mal escrito, al arrancar sale un aviso arriba de la pantalla con el archivo y el motivo. El juego sigue funcionando y se salta lo que esté roto.</p><h2>Paso 4: tu propio modelo</h2><ol><li>Abre <code>mods/models/items/short_sword_iron.vox</code> en <a href="https://ephtracy.github.io/" rel="noopener">MagicaVoxel</a> y guárdalo como <code>mods/models/items/bone_cleaver.vox</code>. Partir de un arma del juego te da la orientación y la escala buenas.</li><li>Dibuja tu arma encima, con la empuñadura en el mismo sitio. Si la mueves, cambia <code>grip</code>: es el vóxel donde cierra la mano.</li><li>En el objeto, cambia <code>"model": "items/bone_cleaver"</code>.</li><li>Con el juego abierto, <kbd>F4</kbd> recarga los modelos sin reiniciar.</li></ol><hr><section lang="en" id="en"><h2>Make your own weapon (and its recipe) (English)</h2><p>Two files. <b>The item</b>, <code>mods/items/&lt;file&gt;.json</code> (a list): <code>id</code>, <code>name</code>, <code>category</code> (<code>weapon</code>), <code>color</code> (a block), <code>model</code> (a .vox under <code>mods/models/</code>, without extension), <code>grip</code> (where the hand holds it, in model voxels), <code>maxStack</code> and <code>weapon</code>: <code>type</code> (<code>melee</code> or <code>bow</code>), <code>style</code> (<code>slash</code>, <code>heavy</code> or <code>thrust</code>), <code>damage</code>, <code>cooldown</code> (0.05–10 s), <code>reach</code> (0.5–8 m) and <code>arc</code> (5–360°). <b>The recipe</b>, <code>mods/recipes/&lt;file&gt;.json</code> (a list): <code>id</code>, <code>result</code>, <code>count</code>, <code>ingredients</code> (<code>item</code> and <code>count</code>) and <code>station</code> (<code>hand</code>, <code>workbench</code>, <code>forge</code>, <code>anvil</code>, <code>cauldron</code>, <code>loom</code>, <code>campfire</code>, <code>cooking_pot</code>, <code>oven</code>, <code>barrel</code>; none = by hand). See the two examples above. Restart the game to load them. For your own model, open <code>mods/models/items/short_sword_iron.vox</code> in MagicaVoxel, save it under a new name and draw over it, keeping the handle where <code>grip</code> says.</p></section>
+<footer>Wiki generada a partir de los datos del juego (<code>mods/</code>) el 17/10/2026. Cube Unbound está en desarrollo: los valores pueden cambiar.</footer>
+</main>
+</div>
+<script>var ROOT="";var FAV_API="https://cube-unbound-corazones.neurostudios-contacto.workers.dev";</script>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "2e7e2164b6b44c80b615bdc271c537fc"}'></script>
+</body>
+</html>
