@@ -217,3 +217,11 @@ figcaption{color:var(--dim);font-size:.88rem;margin-top:6px}
 .platforms{margin:10px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:8px}.btn.plat{padding:5px 14px;font-size:.9rem}
 .cardlink{display:block;color:inherit}.cardlink:hover{text-decoration:none}.cardlink:hover b{color:var(--gold)}
 .card a.il{white-space:normal}
+.reqs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:12px 0 16px}
+.req{background:var(--panel,var(--bg2));border:1px solid var(--line);border-top:4px solid #888;border-radius:12px;padding:12px 14px;min-width:0}
+.req.windows{border-top-color:#3A96DD}.req.android{border-top-color:#3DDC84}.req.linux{border-top-color:#F5C211}
+.req h3{margin:0 0 6px}.req table.reqt{width:100%;display:table;border-collapse:collapse;font-size:.9rem;margin:0}
+.req .reqt th,.req .reqt td{padding:5px 8px 5px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.req .reqt thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--dim);background:none}
+.req .reqt tbody th{color:var(--dim);font-weight:600;white-space:nowrap;padding-right:10px}
+.req p{margin:8px 0 0}
