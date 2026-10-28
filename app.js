@@ -17,7 +17,8 @@
 
   // ---- Buscador global
   var q = document.getElementById('q'), box = document.getElementById('results');
-  var idx = (window.SEARCH_INDEX || []).map(function (r) { return { n: r[0], u: r[1], t: r[2], i: r[3], k: norm(r[0]) }; });
+  // r[4] (opcional): el nombre en inglés, para quien busca «coal» o «bed» con la wiki traducida
+  var idx = (window.SEARCH_INDEX || []).map(function (r) { return { n: r[0], u: r[1], t: r[2], i: r[3], k: norm(r[0]), en: r[4] || '', ke: r[4] ? norm(r[4]) : '' }; });
   var sel = -1;
   function show() {
     var s = norm(q.value.trim());
@@ -26,8 +27,9 @@
     if (s.length < 2) { box.style.display = 'none'; return; }
     var starts = [], has = [];
     for (var i = 0; i < idx.length && starts.length < 40; i++) {
-      var p = idx[i].k.indexOf(s);
-      if (p === 0) starts.push(idx[i]); else if (p > 0 && has.length < 40) has.push(idx[i]);
+      var p = idx[i].k.indexOf(s), pe = idx[i].ke ? idx[i].ke.indexOf(s) : -1;
+      idx[i].viaEn = p < 0 && pe >= 0;
+      if (p === 0 || (p < 0 && pe === 0)) starts.push(idx[i]); else if ((p > 0 || pe > 0) && has.length < 40) has.push(idx[i]);
     }
     var out = starts.concat(has).slice(0, 40);
     out.forEach(function (r) {
@@ -35,11 +37,11 @@
       a.href = ROOT + r.u;
       if (r.i) { var im = document.createElement('img'); im.src = ROOT + r.i; im.alt = ''; a.appendChild(im); }
       else { var sp = document.createElement('span'); sp.className = 'noimg'; a.appendChild(sp); }
-      a.appendChild(document.createTextNode(r.n));
+      a.appendChild(document.createTextNode(r.n + (r.viaEn ? ' · ' + r.en : '')));
       var sm = document.createElement('small'); sm.textContent = r.t; a.appendChild(sm);
       box.appendChild(a);
     });
-    if (!out.length) { var d = document.createElement('a'); d.textContent = 'Sin resultados'; box.appendChild(d); }
+    if (!out.length) { var d = document.createElement('a'); d.textContent = 'Sin resultados · No results'; box.appendChild(d); }
     box.style.display = 'block';
   }
   if (q) {
