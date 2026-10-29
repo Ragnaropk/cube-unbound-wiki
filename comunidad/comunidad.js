@@ -32,7 +32,7 @@
   fetch(api+'/mods',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
     var mods=(d&&d.mods)||[];
     grid.innerHTML=mods.map(function(m){
-      var img=m.imagen?'<img src="'+esc(m.imagen)+'" alt="" loading="lazy" referrerpolicy="no-referrer">':'';
+      var img=m.imagen?'<img src="'+esc(m.imagen)+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">':'';
       return '<div class="modcard" data-type="'+esc(m.tipo)+'">'+img+'<div><span class="badge '+esc(m.tipo)+'">'+esc(TIPO[m.tipo]||'Mod')+'</span>'+
         '<span class="badge ver">'+esc(VER[m.version]||'')+'</span>'+(m.probado?'<span class="badge probado">✔ Probado por Santiago</span>':'')+'</div>'+
         '<h3>'+esc(m.nombre)+'</h3><p>'+esc(m.descripcion)+'</p>'+
@@ -55,7 +55,7 @@
   var out=document.getElementById('modmsg');
   var ERR={nombre:'Ponle un nombre de al menos 3 letras.',autor:'Falta tu nombre de autor.',tipo:'Elige el tipo y la versión del juego.',
     descripcion:'Cuenta un poco más qué hace (al menos 20 letras).',enlace:'El enlace de descarga tiene que empezar por https:// y no puede ser un .exe, .dll ni .apk.',
-    imagen:'El enlace de la imagen tiene que empezar por https://.',demasiados:'Ya enviaste varios hoy. Prueba mañana.',robot:'No se pudo comprobar que no eres un robot.'};
+    imagen:'El enlace de la imagen tiene que empezar por https:// y no puede ser de Discord (caducan en un día). Súbela a imgbb.com o imgur.com.',demasiados:'Ya enviaste varios hoy. Prueba mañana.',robot:'No se pudo comprobar que no eres un robot.'};
   f.addEventListener('submit',function(ev){
     ev.preventDefault();
     var data={};new FormData(f).forEach(function(v,k){data[k]=String(v);});
