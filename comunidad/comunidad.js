@@ -27,7 +27,7 @@
   // Mods de la comunidad (aprobados por Santiago): se piden al servicio y se añaden al catálogo
   var grid=document.getElementById('comgrid'),api=window.CU_API;
   if(!grid||!api)return;
-  var VER={gratis:'Gratis 0.2.x',pago:'De pago 0.5.x',ambas:'Gratis y de pago'},TIPO={mod:'Mod',resourcepack:'Pack de recursos'};
+  var VER={gratis:'Gratis 0.2.x',pago:'De pago 0.5 y 0.6',ambas:'Gratis y de pago'},TIPO={mod:'Mod',resourcepack:'Pack de recursos'};
   function esc(t){var d=document.createElement('div');d.textContent=t==null?'':String(t);return d.innerHTML;}
   fetch(api+'/mods',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
     var mods=(d&&d.mods)||[];
